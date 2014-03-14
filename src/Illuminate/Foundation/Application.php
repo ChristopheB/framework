@@ -181,6 +181,29 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	}
 
 	/**
+	 * Get the default install paths.
+	 *
+	 * @param  string  $base_path
+	 * @return array
+	 */
+	public function getDefaultInstallPaths($base_path = '..')
+	{
+		return array(
+			'app'         => $base_path.'/app',
+			'base'        => $base_path,
+			'commands'    => $base_path.'/app/commands',
+			'config'      => $base_path.'/app/config',
+			'controllers' => $base_path.'/app/controllers',
+			'lang'        => $base_path.'/app/lang',
+			'migrations'  => $base_path.'/app/database/migrations',
+			'public'      => $base_path.'/public',
+			'start'       => $base_path.'/app/start',
+			'storage'     => $base_path.'/app/storage',
+			'views'       => $base_path.'/app/views',
+		);
+	}
+
+	/**
 	 * Bind the installation paths to the application.
 	 *
 	 * @param  array  $paths
@@ -188,6 +211,11 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	 */
 	public function bindInstallPaths(array $paths)
 	{
+		// We merge the passed array with the one containing the default install paths, 
+		// so that all the keys needed by the framework exist. The passed array may
+		// not contain all the keys, which is useful for backward compatibility.
+		$paths = array_merge($this->getDefaultInstallPaths(), $paths);
+
 		$this->instance('path', realpath($paths['app']));
 
 		// Here we will bind the install paths into the container as strings that can be

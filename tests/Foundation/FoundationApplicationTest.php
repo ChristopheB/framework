@@ -37,6 +37,26 @@ class FoundationApplicationTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue(in_array($class, $app->getLoadedProviders()));
 	}
 
+
+	public function testInstallPathsKeysExist()
+	{
+		$app = new Application;
+
+		$paths = $app->getDefaultInstallPaths();
+
+		$this->assertArrayHasKey('app', $paths);
+		$this->assertArrayHasKey('base', $paths);
+		$this->assertArrayHasKey('commands', $paths);
+		$this->assertArrayHasKey('config', $paths);
+		$this->assertArrayHasKey('controllers', $paths);
+		$this->assertArrayHasKey('lang', $paths);
+		$this->assertArrayHasKey('migrations', $paths);
+		$this->assertArrayHasKey('public', $paths);
+		$this->assertArrayHasKey('start', $paths);
+		$this->assertArrayHasKey('storage', $paths);
+		$this->assertArrayHasKey('views', $paths);
+	}
+
 }
 
 class ApplicationCustomExceptionHandlerStub extends Illuminate\Foundation\Application {
