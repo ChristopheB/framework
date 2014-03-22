@@ -98,6 +98,7 @@ class ViewServiceProvider extends ServiceProvider {
 		$this->app->bindShared('view.finder', function($app)
 		{
 			$paths = $app['config']['view.paths'];
+			array_unshift($paths, $app['path.views']);
 
 			return new FileViewFinder($app['files'], $paths);
 		});
