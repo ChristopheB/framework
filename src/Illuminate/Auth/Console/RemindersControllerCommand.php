@@ -46,7 +46,7 @@ class RemindersControllerCommand extends Command {
 	 */
 	public function fire()
 	{
-		$destination = $this->laravel['path'].'/controllers/RemindersController.php';
+		$destination = $this->laravel['path.controllers'].'/RemindersController.php';
 
 		if ( ! $this->files->exists($destination))
 		{
