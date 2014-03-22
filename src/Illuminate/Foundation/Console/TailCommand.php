@@ -115,15 +115,22 @@ class TailCommand extends Command {
 	 */
 	protected function getPath($connection)
 	{
-		if ($this->option('path')) return $this->option('path');
+		if ($this->option('path')) 
+		{
+			return $this->option('path');
+		}
+
+		$path = $this->laravel['config']['log.file'] ?: storage_path().'/logs/laravel.log';
 
 		if (is_null($connection))
 		{
-			return base_path().'/app/storage/logs/laravel.log';
+			return $path;
 		}
 		else
 		{
-			return $this->getRoot($connection).'/app/storage/logs/laravel.log';
+			$relative_path = str_replace(base_path(), '', $path);
+
+			return $this->getRoot($connection).$relative_path;
 		}
 	}
 
