@@ -234,7 +234,7 @@ $app->booted(function() use ($app, $env)
 |
 */
 
-$path = $app['path'].'/start/global.php';
+$path = $app['path.start'].'/global.php';
 
 if (file_exists($path)) require $path;
 
@@ -249,7 +249,7 @@ if (file_exists($path)) require $path;
 |
 */
 
-$path = $app['path']."/start/{$env}.php";
+$path = $app['path.start']."/{$env}.php";
 
 if (file_exists($path)) require $path;
 
